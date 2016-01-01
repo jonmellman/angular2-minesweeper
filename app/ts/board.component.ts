@@ -11,7 +11,7 @@ import {BoardManager} from 'app/js/board-manager.service';
 			<tbody>
 				<tr *ngFor="#row of boardManager.getTiles()">
 					<td *ngFor="#tile of row">
-						<my-tile [tile]="tile"></my-tile>
+						<my-tile [tile]="tile" [onTileClick]="boardManager.uncover"></my-tile>
 					</td>
 				</tr>
 			</tbody>
@@ -20,11 +20,14 @@ import {BoardManager} from 'app/js/board-manager.service';
   	directives: [TileComponent],
 	providers: [BoardManager]
 })
-export class BoardComponent implements OnInit{
+export class BoardComponent implements OnInit {
 	x: number;
 	y: number;
 	difficulty: number;
-	constructor(private boardManager: BoardManager) { };
+	rand: number;
+	constructor(boardManager: BoardManager) {
+		this.boardManager = boardManager;
+	};
 	ngOnInit() {
 		this.boardManager.createTiles(this.x, this.y, this.difficulty);
 	}

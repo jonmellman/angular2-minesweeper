@@ -1,11 +1,18 @@
-import {BoardManager} from 'app/js/board-manager.service';
+import {Point} from 'app/js/utils';
 
 export class Tile {
 	isUncovered: boolean = false;
-	constructor(public isMine: boolean) {
+	numNeighboringMines: string = '';
+	constructor(public isMine: boolean, public position: point) {
 
 	}
 	uncover() {
 		this.isUncovered = true;
+	}
+	setNumNeighboringMines(n: number) {
+		this.numNeighboringMines = n.toString();
+	}
+	getNumNeighboringMines(): string {
+		return this.numNeighboringMines;
 	}
 }

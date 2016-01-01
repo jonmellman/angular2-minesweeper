@@ -16,6 +16,6 @@ export class AppComponent {
   constructor() {
     this.x = 5;
     this.y = 5;
-    this.difficulty = .5;
+    this.difficulty = .1;
   };
 }
