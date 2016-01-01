@@ -1,21 +1,34 @@
 import {Component} from 'angular2/core';
 import {BoardComponent} from 'app/js/board.component';
+import {GameManager} from 'app/js/game-manager.service';
 
 @Component({
-  selector: 'my-app',
-  template: `
-    	<h1>Minesweeper</h1>
-      <my-board [rows]="rows" [columns]="columns" [difficulty]="difficulty"></my-board>
-    `,
-  directives: [BoardComponent]
+	selector: 'my-app',
+	template: `
+		<h1>Minesweeper</h1>
+		<my-board
+			[rows]="rows"
+			[columns]="columns"
+			[difficulty]="difficulty"
+			[class.disabled]="gameManager.isGameOver">
+		 </my-board>
+	`,
+	 styles: [`
+		 .disabled {
+			pointer-events: none;	 
+		 }
+	`],
+	directives: [BoardComponent],
+	providers: [GameManager]
 })
 export class AppComponent {
-  public rows: number;
-  public columns: number;
-  public difficulty: number; // % chance a tile is a mine
-  constructor() {
-    this.rows = 20;
-    this.columns = 40;
-    this.difficulty = .15;
-  };
+	rows: number;
+	columns: number;
+	difficulty: number; // % chance a tile is a mine
+
+	constructor(private gameManager: GameManager) {
+		this.rows = 20;
+		this.columns = 40;
+		this.difficulty = .15;
+	};
 }

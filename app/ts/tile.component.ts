@@ -24,6 +24,7 @@ import {Tile} from 'app/js/tile';
 		    height: 20px;
 		    line-height: 20px;
 		    text-align: center;
+		    transition: background-color .15s;
 	 	}
 	 	div.covered:hover {
 	 		background-color: lightblue;
@@ -45,7 +46,7 @@ import {Tile} from 'app/js/tile';
 	 		background-color: #FFD27E;
 	 	}
 	 	div.uncovered.safe._4 {
-	 		background-color: red;
+	 		background-color: #F96464;
 	 	}
 	 	div.uncovered.safe._5 {
 	 		background-color: firebrick;

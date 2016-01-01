@@ -1,10 +1,16 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, Inject} from 'angular2/core';
 import {Tile} from 'app/js/tile';
 import {Point} from 'app/js/utils';
+import {GameManager} from 'app/js/game-manager.service';
 
 @Injectable()
 export class BoardManager {
 	private tiles: tile[][];
+	private gameManager: GameManager;
+	constructor(@Inject(GameManager) gameManager: GameManager) {
+		this.gameManager = gameManager;
+	}
+
 	createTiles(rows: number, columns: number, difficulty: number): void {
 		// create blank tiles
 		this.tiles = [];
@@ -18,17 +24,15 @@ export class BoardManager {
 
 
 		// lay mines (naive)
-		this.tiles.forEach(function(row) {
-			row.forEach(function(tile) {
-				tile.isMine = Math.random() < difficulty; // e.g. difficulty 0 means no mines, difficulty 1 means all mines
-				if (tile.isMine) {
-					// our neighbors now have one more mine as a neighbor
-					this.getNeighboringTiles(tile).forEach(function(neighbor) {
-						neighbor.numNeighboringMines++;
-					});
-				}
-			}, this);
-		}, this);
+		this.forEachTile(function(tile) {
+			tile.isMine = Math.random() < difficulty; // e.g. difficulty 0 means no mines, difficulty 1 means all mines
+			if (tile.isMine) {
+				// our neighbors now have one more mine as a neighbor
+				this.getNeighboringTiles(tile).forEach(function(neighbor) {
+					neighbor.numNeighboringMines++;
+				});
+			}
+		});
 	}
 	hasTiles(): boolean {
 		return this.tiles.length > 0;
@@ -39,7 +43,9 @@ export class BoardManager {
 	uncover = (tile: tile) => { // need to use arrow function to preserve `this` reference
 		tile.uncover();
 		if (tile.isMine) {
-			alert('game over!');
+			this.revealAllMines();
+			this.gameManager.endGame();
+			
 		} else {
 			this.uncoverHelper(tile);
 		}
@@ -82,5 +88,19 @@ export class BoardManager {
 	}
 	private getTileAt = (pos: point): tile => {
 		return this.tiles[pos.x] && this.tiles[pos.x][pos.y];
+	}
+	private revealAllMines() {
+		this.forEachTile(function(tile) {
+			if (tile.isMine) {
+				tile.uncover();
+			}
+		});
+	}
+	private forEachTile(callback, thisArg?) {
+		this.tiles.forEach(function(row) {
+			row.forEach(function(tile) {
+				callback.bind(this)(tile);
+			}, this);
+		}, this);
 	}
 }
