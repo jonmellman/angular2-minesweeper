@@ -7,12 +7,13 @@ import {Tile} from 'app/js/tile';
 	template: `
 		<div
 			(click)="onTileClick(tile)"
+			class="_{{tile.numNeighboringMines}}"
 			[class.uncovered]="tile.isUncovered"
 			[class.covered]="!tile.isUncovered"
 			[class.mine]="tile.isMine"
 			[class.safe]="!tile.isMine"
 			>
-			{{tile.isUncovered && tile.getNumNeighboringMines() || ''}}
+			{{tile.isUncovered && tile.numNeighboringMines || ''}}
 		</div>
 	  `,
 	 styles: [`
@@ -31,8 +32,36 @@ import {Tile} from 'app/js/tile';
 	 	div.uncovered.mine {
 	 		background-color: black;
 	 	}
-	 	div.uncovered.safe {
+	 	div.uncovered.safe._0 {
 	 		background-color: white;
+	 	}
+	 	div.uncovered.safe._1 {
+	 		background-color: #C5E0A4;
+	 	}
+	 	div.uncovered.safe._2 {
+	 		background-color: #F7F98F;
+	 	}
+	 	div.uncovered.safe._3 {
+	 		background-color: #FFD27E;
+	 	}
+	 	div.uncovered.safe._4 {
+	 		background-color: red;
+	 	}
+	 	div.uncovered.safe._5 {
+	 		background-color: firebrick;
+	 		color: white;
+	 	}
+	 	div.uncovered.safe._6 {
+	 		background-color: firebrick;
+	 		color: white;
+	 	}
+	 	div.uncovered.safe._7 {
+	 		background-color: firebrick;
+	 		color: white;
+	 	}
+	 	div.uncovered.safe._8 {
+	 		background-color: firebrick;
+	 		color: white;
 	 	}
 	 `]
 })

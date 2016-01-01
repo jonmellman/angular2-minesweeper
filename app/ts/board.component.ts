@@ -5,7 +5,7 @@ import {BoardManager} from 'app/js/board-manager.service';
 
 @Component({
 	selector: 'my-board',
-	inputs: ['x', 'y', 'difficulty'],
+	inputs: ['rows', 'columns', 'difficulty'],
 	template: `
 		<table *ngIf="boardManager.hasTiles()">
 			<tbody>
@@ -21,14 +21,11 @@ import {BoardManager} from 'app/js/board-manager.service';
 	providers: [BoardManager]
 })
 export class BoardComponent implements OnInit {
-	x: number;
-	y: number;
+	rows: number;
+	columns: number;
 	difficulty: number;
-	rand: number;
-	constructor(boardManager: BoardManager) {
-		this.boardManager = boardManager;
-	};
+	constructor(private boardManager: BoardManager) {};
 	ngOnInit() {
-		this.boardManager.createTiles(this.x, this.y, this.difficulty);
+		this.boardManager.createTiles(this.rows, this.columns, this.difficulty);
 	}
 }
