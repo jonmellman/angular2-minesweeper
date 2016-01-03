@@ -17,6 +17,10 @@ import {GameManager} from 'app/js/game-manager.service';
 		 .disabled {
 			pointer-events: none;	 
 		 }
+		 * {
+		 	font-family: 'Roboto', sans-serif;
+		 	font-weight: 300;
+		 }
 	`],
 	directives: [BoardComponent],
 	providers: [GameManager]
@@ -30,5 +34,6 @@ export class AppComponent {
 		this.rows = 20;
 		this.columns = 40;
 		this.difficulty = .15;
-	};
+	}
+
 }

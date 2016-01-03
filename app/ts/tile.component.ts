@@ -22,6 +22,7 @@ import {Tile} from 'app/js/tile';
 		    border: 1px solid black;
 		    width: 20px;
 		    height: 20px;
+		    font-size: 12px;
 		    line-height: 20px;
 		    text-align: center;
 		    transition: background-color .15s;
