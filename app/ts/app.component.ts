@@ -6,6 +6,7 @@ import {GameManager} from 'app/js/game-manager.service';
 	selector: 'my-app',
 	template: `
 		<h1>Minesweeper</h1>
+		<button (click)="restart()">Restart</button>
 		<my-board
 			[rows]="rows"
 			[columns]="columns"
@@ -29,7 +30,9 @@ export class AppComponent {
 	rows: number;
 	columns: number;
 	difficulty: number; // % chance a tile is a mine
-
+	restart() {
+		window.location.reload();
+	}
 	constructor(private gameManager: GameManager) {
 		this.rows = 20;
 		this.columns = 40;
